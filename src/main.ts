@@ -76,6 +76,7 @@ async function run(): Promise<void> {
 
     // Only needs to
     if (shouldSaveOnly) {
+      core.debug('saving...');
       await saveSnapshots({
         artifactName,
         rootDirectory: current,
@@ -116,7 +117,7 @@ async function run(): Promise<void> {
     ]);
 
     if (!didDownloadLatest) {
-      core.debug('Unable to download artifact from base branch');
+      core.warning('Unable to download artifact from base branch');
       return;
     }
 
@@ -134,11 +135,11 @@ async function run(): Promise<void> {
     ]);
 
     if (!baseFiles.length) {
-      core.debug('No snapshots found for base branch');
+      core.warning('No snapshots found for base branch');
     }
 
     if (!currentFiles.length) {
-      core.debug('No snapshots found for current branch');
+      core.warning('No snapshots found for current branch');
     }
 
     // make diff dir if not exists
