@@ -120,10 +120,11 @@ async function run(): Promise<void> {
       return;
     }
 
+    core.debug('downloading snapshots...');
     // Download snapshots from current branch
     const resp = await downloadSnapshots({
       artifactName,
-      rootDirectory: '/tmp',
+      rootDirectory: '/tmp/visual-snapshots',
     });
     const current = resp.downloadPath;
     console.log({current});
