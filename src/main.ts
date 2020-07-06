@@ -9,7 +9,7 @@ import * as Sentry from '@sentry/node';
 import {RewriteFrames} from '@sentry/integrations';
 
 import {createDiff} from './util/createDiff';
-import {downloadArtifact} from './api/downloadArtifact';
+import {downloadOtherWorkflowArtifact} from './api/downloadArtifact';
 import {multiCompare} from './util/multiCompare';
 import {generateImageGallery} from './util/generateImageGallery';
 import {saveSnapshots} from './util/saveSnapshots';
@@ -97,7 +97,7 @@ async function run(): Promise<void> {
 
     const mergeBaseSha: string = github.context.payload.pull_request?.base?.sha;
     const [didDownloadLatest] = await Promise.all([
-      downloadArtifact(octokit, {
+      downloadOtherWorkflowArtifact(octokit, {
         owner,
         repo,
         branch: baseBranch,
@@ -105,7 +105,7 @@ async function run(): Promise<void> {
         artifactName,
         downloadPath: basePath,
       }),
-      downloadArtifact(octokit, {
+      downloadOtherWorkflowArtifact(octokit, {
         owner,
         repo,
         branch: baseBranch,
